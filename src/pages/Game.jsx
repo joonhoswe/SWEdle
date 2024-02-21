@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import Popup from "../components/Popup"; 
 
 const Game = () => {
+
+    const [buttonPopup, setButtonPopup] = useState(false);
+
     let navigate = useNavigate();
     const goToHome = () => {
         navigate('/Home');
-    };
-
-    const goToHowToPlay = () => {
-        // Assuming you have a route for the How to Play page
-        navigate('/HowToPlay');
     };
 
     return (
@@ -30,7 +29,7 @@ const Game = () => {
                 {/* How to Play button */}
                 <button 
                     className="hover:scale-110 bg-white bg-opacity-25 text-white py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-white hover:text-black focus:outline-none" 
-                    onClick={goToHowToPlay}
+                    onClick={() => setButtonPopup(true)}
                 >
                     How to Play
                 </button>
@@ -45,6 +44,13 @@ const Game = () => {
             <div className="text-center mt-24 pb-3 w-full">
                 <p className="text-white font-sans">Created by Jonathan Oh</p>
             </div>
+
+            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                <h3 className="text-xl text-white">How to Play</h3>
+                <p className="mt-4 text-white">Guess the SWE word in 6 tries. After each guess, the color of the tiles will change to show how close your guess was to the word. </p> <br></br> 
+                <p className="mt-2 text-white"> A green tile indicates a correct letter and correct position. A yellow tile
+                 indicates a correct letter, but an incorrect position. A grey tile indicates an incorrect letter that won't be in the word.</p>
+            </Popup>
         </div>
     );
 };
