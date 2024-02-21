@@ -11,6 +11,18 @@ const Game = () => {
         navigate('/Home');
     };
 
+    function letterTyped() {
+
+    }
+
+    function checkWord() {
+
+    }
+
+    function updateCells() {
+
+    }
+    
     return (
         <div className="bg-gray-900 h-screen flex flex-col">
             {/* Header*/}
@@ -40,11 +52,23 @@ const Game = () => {
 
             {/* Game content */}
 
+            {/* Row for Guess 1 */}
+            <div className="flex justify-center items-center space-x-4 mt-8 pt-3 pb-4">
+
+                <div className = "border-2 border-gray-700 h-20 w-20"></div>
+                <div className = "border-2 border-gray-700 h-20 w-20"></div>
+                <div className = "border-2 border-gray-700 h-20 w-20"></div>
+                <div className = "border-2 border-gray-700 h-20 w-20"></div>
+                <div className = "border-2 border-gray-700 h-20 w-20"></div>
+
+            </div>
+
             {/* Additional content */}
             <div className="text-center mt-24 pb-3 w-full">
                 <p className="text-white font-sans">Created by Jonathan Oh</p>
             </div>
 
+            {/* Pop-up for How to Play */}
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                 <h3 className="text-xl text-white">How to Play</h3>
                 <p className="mt-4 text-white">Guess the SWE word in 6 tries. After each guess, the color of the tiles will change to show how close your guess was to the word. </p> <br></br> 
