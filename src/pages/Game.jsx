@@ -5,6 +5,9 @@ import Popup from "../components/Popup";
 const Game = () => {
 
     const [buttonPopup, setButtonPopup] = useState(false);
+    const [guess, setGuess] = useState(["", "", "", "", ""]);
+
+    let regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
 
     let navigate = useNavigate();
     const goToHome = () => {
@@ -14,7 +17,36 @@ const Game = () => {
     useEffect(() => {
         // Adding the keydown event listener when the component mounts
         const letterTyped = (event) => {
-            alert("key pressed is: "+ event.key);
+            if (regex.test(event.key)) 
+            {
+                let index = guess.indexOf("");
+                if (index !== -1)
+                {
+                    const newGuess = [...guess];
+                    newGuess[index] = event.key.toUpperCase();
+                    setGuess(newGuess);
+                }
+            }
+            else if (event.key === "Backspace" || event.key === "Delete") 
+            {
+                let delIndex = guess.indexOf("");
+
+                // found an empty space, meaning previous index is a letter
+                // don't check delIndex = 0 to prevent idx out of bounds, + empty at 0 means empty array
+                if (delIndex !== -1 && delIndex !== 0)        
+                {
+                    const newGuess = [...guess];
+                    newGuess[delIndex - 1] = "";
+                    setGuess(newGuess);
+                }
+                else            // no empty space, meaning array is full
+                {
+                    const newGuess = [...guess];
+                    newGuess[4] = "";
+                    setGuess(newGuess);
+                }
+            }
+            
         };
 
         window.addEventListener("keydown", letterTyped);
@@ -23,7 +55,8 @@ const Game = () => {
         return () => {
             window.removeEventListener("keydown", letterTyped);
         };
-    }, []);
+    }, [guess]);
+
 
     return (
         <div className="bg-gray-900 h-screen flex flex-col">
@@ -56,14 +89,13 @@ const Game = () => {
 
             {/* Row for Guess 1 */}
             <div className="flex justify-center items-center space-x-4 mt-8 pt-3 pb-4">
-
-                <div className = "border-2 border-gray-700 h-20 w-20"></div>
-                <div className = "border-2 border-gray-700 h-20 w-20"></div>
-                <div className = "border-2 border-gray-700 h-20 w-20"></div>
-                <div className = "border-2 border-gray-700 h-20 w-20"></div>
-                <div className = "border-2 border-gray-700 h-20 w-20"></div>
-
+                {guess.map((letter, index) => (
+                    <div key={index} className="border-2 border-gray-700 text-white h-20 w-20 flex justify-center items-center text-4xl">
+                        {letter}
+                    </div>
+                ))}
             </div>
+
 
             {/* Additional content */}
             <div className="text-center mt-24 pb-3 w-full">
