@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Popup from "../components/Popup"; 
 
@@ -11,18 +11,20 @@ const Game = () => {
         navigate('/Home');
     };
 
-    function letterTyped() {
+    useEffect(() => {
+        // Adding the keydown event listener when the component mounts
+        const letterTyped = (event) => {
+            alert("key pressed is: "+ event.key);
+        };
 
-    }
+        window.addEventListener("keydown", letterTyped);
 
-    function checkWord() {
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener("keydown", letterTyped);
+        };
+    }, []);
 
-    }
-
-    function updateCells() {
-
-    }
-    
     return (
         <div className="bg-gray-900 h-screen flex flex-col">
             {/* Header*/}
@@ -73,7 +75,7 @@ const Game = () => {
                 <h3 className="text-xl text-white">How to Play</h3>
                 <p className="mt-4 text-white">Guess the SWE word in 6 tries. After each guess, the color of the tiles will change to show how close your guess was to the word. </p> <br></br> 
                 <p className="mt-2 text-white"> A green tile indicates a correct letter and correct position. A yellow tile
-                 indicates a correct letter, but an incorrect position. A grey tile indicates an incorrect letter that won't be in the word.</p>
+                indicates a correct letter, but an incorrect position. A grey tile indicates an incorrect letter that won't be in the word.</p>
             </Popup>
         </div>
     );
