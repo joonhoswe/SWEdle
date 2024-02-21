@@ -24,10 +24,12 @@ const Home = () => {
 
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                 <h3 className="text-xl text-white">How to Play</h3>
-                <p className="mt-4 text-white">Guess the SWE word in 6 tries. After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+                <p className="mt-4 text-white">Guess the SWE word in 6 tries. After each guess, the color of the tiles will change to show how close your guess was to the word. </p> <br></br> 
+                <p className="mt-2 text-white"> A green tile indicates a correct letter and correct position. A yellow tile
+                 indicates a correct letter, but an incorrect position. A grey tile indicates an incorrect letter that won't be in the word.</p>
             </Popup>
 
-            <div className="flex justify-center items-center mt-96">
+            <div className="flex justify-center items-center mt-24">
                 <p className="text-white font-sans">Created by Jonathan Oh</p>
             </div>
         </div>
