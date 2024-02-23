@@ -23,6 +23,7 @@
 
 
 ## 🚀 Future Plans:
+- Add a keyboard below the guesses to enhance visuals
 - Incorporate Web Scraping to scrape websites and dictionaries with lists of SWE words
 - Connect the scraped terms to a database
 - Expand the game to allow for various lengths of SWE words, not just 5 letter words.
