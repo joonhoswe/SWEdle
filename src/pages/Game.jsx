@@ -5,13 +5,13 @@ import Popup from "../components/Popup";
 const Game = () => {
 
     const [buttonPopup, setButtonPopup] = useState(false);
-    const [word, setWord] = useState(["", "", "", "", ""]);         // 5 letter spots
-    const [wordStatus, setWordStatus] = useState(Array(5).fill("null"));
 
-    // const [guess, setGuess] = useState(["", "", "", "", "", ""]);      // 6 guesses
+    const [guesses, setGuesses] = useState(Array(6).fill(Array(5).fill("")));      // 6 guesses
+    const [guessStatus, setGuessStatus] = useState(Array(6).fill(Array(5).fill("null")));   // status for each guess
 
-    const letters = [26];
-    const ans = ["C", "O", "N", "S", "T"];
+    let currentGuessIndex = 0;
+
+    const ans = ["A", "N", "G", "I", "E"];
 
     let regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
 
@@ -23,85 +23,97 @@ const Game = () => {
     useEffect(() => {
         // Adding the keydown event listener when the component mounts
         const letterTyped = (event) => {
-            if (regex.test(event.key)) 
-            {
-                let index = word.indexOf("");
-                if (index !== -1)
-                {
-                    const newWord = [...word];
-                    newWord[index] = event.key.toUpperCase();
-                    setWord(newWord);
-                }
-            }
-            else if (event.key === "Backspace" || event.key === "Delete") 
-            {
-                let delIndex = word.indexOf("");
-
-                // found an empty space, meaning previous index is a letter
-                // don't check delIndex = 0 to prevent idx out of bounds, + empty at 0 means empty array
-                if (delIndex !== -1 && delIndex !== 0)        
-                {
-                    const newWord = [...word];
-                    newWord[delIndex - 1] = "";
-                    setWord(newWord);
-                }
-                else            // no empty space, meaning array is full
-                {
-                    const newWord = [...word];
-                    newWord[4] = "";        // delete by replacing last index's letter with a empty string
-                    setWord(newWord);
-                }
-            }
-            else if (event.key === "Enter") {
-                let index = word.indexOf("");
-
-                if (index !== -1) alert("Please write a complete word before checking!");    // ensure full word is entered before check
-                else if (index === -1) { // Ensure the guess is complete
-                    
             
-                    // First pass: Mark correct positions as "correct"
-                    const ansCopy = [...ans]; // Copy of answer for mutable operations
-                    const status = [...wordStatus];
+            const newGuesses = [...guesses];
+            const newGuess = [...newGuesses[currentGuessIndex]];
+            
+            if (currentGuessIndex < 6)  // while guesses are left
+            {
+                const letterIndex = newGuess.indexOf("");
 
-                    for (let i = 0; i < word.length; i++) {
-                        if (word[i] === ans[i]) 
+                if (regex.test(event.key) && letterIndex !== -1) 
+                {
+                    newGuess[letterIndex] = event.key.toUpperCase();
+                    newGuesses[currentGuessIndex] = newGuess;
+                    setGuesses(newGuesses);
+                }
+                else
+                {
+                    if (event.key === "Backspace" || event.key === "Delete") 
+                    {
+                        let delIndex = newGuess.indexOf("");
+    
+                        // found an empty space, meaning previous index is a letter
+                        // don't check delIndex = 0 to prevent idx out of bounds, + empty at 0 means empty array
+                        if (delIndex !== -1 && delIndex !== 0)        
                         {
-                            status[i] = "correct"; // Mark as correct
-                            setWordStatus(status);
-
-                            ansCopy[i] = null; // Remove the matched letter from consideration
+                            newGuess[delIndex - 1] = "";
+                            newGuesses[currentGuessIndex] = newGuess;
+                            setGuesses(newGuesses);
+                        }
+                        else            // no empty space, meaning array is full
+                        {
+                            newGuess[4] = "";        // delete by replacing last index's letter with a empty string
+                            newGuesses[currentGuessIndex] = newGuess;
+                            setGuesses(newGuesses);
                         }
                     }
-            
-                    // Second pass: Find present but wrong spot letters based on unmatched letters and their frequency
-                    word.forEach((letter, i) => {
-                        if (status[i] !== "correct") { // Skip already correctly matched letters
-                            if (ansCopy.includes(letter)) 
-                            {
-                                // If letter is present in the answer but not yet matched, it's potentially yellow
-                                // Remove this letter from ansCopy to acknowledge its accounted occurrence
-                                const removeIndex = ansCopy.indexOf(letter);
-                                ansCopy[removeIndex] = null; // Remove from consideration
-
-                                status[i] = "present"; 
-                                setWordStatus(status);
-                            } 
-                            else        // wrong letter
-                            {
-                                status[i] = "absent"; 
-                                setWordStatus(status);
+                    else if (event.key === "Enter") 
+                    {
+                        let index = newGuess.indexOf("");
+    
+                        if (index !== -1) // ensure full word is entered before check
+                        {
+                            alert("Please write a complete word before checking!"); 
+                        }   
+                        else if (index === -1) { // Ensure the guess is complete
+                            
+                            // add some sort of variable making this guess now unable to be visited or edited again
+    
+                            // First pass: Mark correct positions as "correct"
+                            const ansCopy = [...ans]; // Copy of answer for mutable operations
+                            const status = [...guessStatus[currentGuessIndex]];
+    
+                            for (let i = 0; i < newGuess.length; i++) {
+                                if (newGuess[i] === ans[i]) 
+                                {
+                                    status[i] = "correct"; // Mark as correct
+                                    setGuessStatus(status);
+    
+                                    ansCopy[i] = null; // Remove the matched letter from consideration
+                                }
                             }
-                        }
-                    });
-            
-                    // Reset word for next guess, if implementing multiple guesses
-                    // setWord(["", "", "", "", ""]); // Comment out if you're not ready to reset
-                }
+                    
+                            // Second pass: Find present but wrong spot letters based on unmatched letters and their frequency
+                            newGuess.forEach((letter, i) => {
+                                if (status[i] !== "correct") { // Skip already correctly matched letters
+                                    if (ansCopy.includes(letter)) 
+                                    {
+                                        // If letter is present in the answer but not yet matched, it's potentially yellow
+                                        // Remove this letter from ansCopy to acknowledge its accounted occurrence
+                                        const removeIndex = ansCopy.indexOf(letter);
+                                        ansCopy[removeIndex] = null; // Remove from consideration
+    
+                                        status[i] = "present"; 
+                                        setGuessStatus(status);
+                                    } 
+                                    else
+                                    {
+                                        status[i] = "wrong";
+                                        setGuessStatus(status);
+                                    }
+                                }
+                            });
 
+                            currentGuessIndex++;
+                        } 
+                    }
+                }
+                
             }
-            
-            
+            else alert("no more guesses");
         };
+
 
         window.addEventListener("keydown", letterTyped);
 
@@ -110,9 +122,9 @@ const Game = () => {
             window.removeEventListener("keydown", letterTyped);
         };
 
-    }, [word]);
+    }, [guesses]);
 
-
+    
     return (
         <div className="bg-gray-900 h-screen flex flex-col">
             {/* Header*/}
@@ -126,7 +138,7 @@ const Game = () => {
                 </button>
 
                 {/* Game Name */}
-                <h1 className="text-white text-3xl font-sans">SWEdle</h1>
+                <h1 className="text-white text-4xl font-sans">SWEdle</h1>
 
                 {/* How to Play button */}
                 <button 
@@ -142,11 +154,15 @@ const Game = () => {
 
             {/* Game content */}
 
-            {/* Row for Guess 1 */}
-            <div className="flex justify-center items-center space-x-4 mt-8 pt-3 pb-4">
-                {word.map((letter, index) => (
-                    <div key={index} className={` text-white border-2 h-16 w-16 flex justify-center items-center text-4xl ${wordStatus[index] === 'correct' ? 'bg-green-500' : wordStatus[index] === 'present' ? 'bg-yellow-500' : wordStatus[index] === 'absent' ? 'bg-red-500' : 'bg-transparent'}`}>
-                        {letter}
+             {/* Game Board for Guesses */}
+            <div className="flex flex-col items-center justify-center">
+                {guesses.map((guess, guessIndex) => (
+                    <div key={guessIndex} className="flex justify-center items-center space-x-4 my-2">
+                        {guess.map((letter, letterIndex) => (
+                            <div key={letterIndex} className={` text-white border-2 h-16 w-16 flex justify-center items-center text-4xl ${guessStatus[letterIndex] === 'correct' ? 'bg-green-500 scale-110 transition duration-600 ease-in-out' : guessStatus[letterIndex] === 'present' ? 'bg-yellow-500 scale-110 transition duration-600 ease-in-out' :  guessStatus[letterIndex] === 'wrong' ? 'bg-red-500 scale-110 transition duration-600 ease-in-out' : 'bg-transparent'}`}>
+                            {letter}
+                            </div>
+                        ))}
                     </div>
                 ))}
             </div>
