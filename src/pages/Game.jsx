@@ -15,7 +15,7 @@ const Game = () => {
     const [gameLost, setGameLost] = useState(false);
 
 
-    const ans = ["P", "E", "N", "I", "S"];
+    const ans = ["R", "E", "A", "C", "T"];
 
     let regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
 
@@ -122,7 +122,7 @@ const Game = () => {
         };
 
         if (currentGuessIndex === 6) setGameLost(true);
-        
+
         window.addEventListener("keydown", letterTyped);
 
         // Cleanup function to remove the event listener when the component unmounts
