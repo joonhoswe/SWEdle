@@ -3,7 +3,22 @@
 # 💫 About:
 🧩 SWEdle is a spinoff of the viral web game Wordle.com. Instead of random words, SWEdle incorporates various Software Engineering words and terms, such as "React", "Linux", "Agile", etc. As of now, it only incorporates a list of 5 letter words, similar to Wordle. <br><br>
 
-##  🎮 Game Images:
+##  🎮 Images:
+
+### 🏠 Home Page:
+<img width="828" alt="Screenshot 2024-02-23 at 4 36 27 PM" src="https://github.com/joonhoswe/SWEdle/assets/149014867/d727c21b-6ac7-4ef9-a3d3-d4f236aa98f7">
+
+### 🕹 Game Page:
+<img width="1512" alt="Screenshot 2024-02-23 at 4 36 36 PM" src="https://github.com/joonhoswe/SWEdle/assets/149014867/403e0c4b-a06e-4dab-bf24-ee54cf64e8c4">
+
+### 🎯 Game In Progress:
+<img width="1512" alt="Screenshot 2024-02-23 at 4 37 00 PM" src="https://github.com/joonhoswe/SWEdle/assets/149014867/8b975905-3de4-4e2d-8ea3-5b7a8e79b79d">
+
+### 📝 How-to-Play Pop-up:
+
+
+
+
 
 ## 🚀 Future Plans:
 - Incorporate Web Scraping to scrape websites and dictionaries with lists of SWE words
