@@ -15,7 +15,7 @@
 <img width="1512" alt="Screenshot 2024-02-23 at 4 37 00 PM" src="https://github.com/joonhoswe/SWEdle/assets/149014867/8b975905-3de4-4e2d-8ea3-5b7a8e79b79d">
 
 ### 📝 How-to-Play Pop-up:
-
+<img width="518" alt="Screenshot 2024-02-23 at 5 06 24 PM" src="https://github.com/joonhoswe/SWEdle/assets/149014867/cd7690fd-6d44-4493-9cd7-57ad3e589af2">
 
 
 
