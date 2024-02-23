@@ -11,8 +11,11 @@ const Game = () => {
 
     const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
 
+    const [gameWon, setGameWon] = useState(false);
+    const [gameLost, setGameLost] = useState(false);
 
-    const ans = ["A", "N", "G", "I", "E"];
+
+    const ans = ["P", "E", "N", "I", "S"];
 
     let regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
 
@@ -24,12 +27,11 @@ const Game = () => {
     useEffect(() => {
         // Adding the keydown event listener when the component mounts
         const letterTyped = (event) => {
-            
-            const newGuesses = [...guesses];
-            const newGuess = [...newGuesses[currentGuessIndex]];
-            
+        
             if (currentGuessIndex < 6)  // while guesses are left
             {
+                const newGuesses = [...guesses];
+                const newGuess = [...newGuesses[currentGuessIndex]];
                 const letterIndex = newGuess.indexOf("");
 
                 if (regex.test(event.key) && letterIndex !== -1) 
@@ -67,9 +69,7 @@ const Game = () => {
                         {
                             alert("Please write a complete word before checking!"); 
                         }   
-                        else if (index === -1) { // Ensure the guess is complete
-                            
-                            // add some sort of variable making this guess now unable to be visited or edited again
+                        else if (index === -1) { // Ensure the guess is complet
     
                             // First pass: Mark correct positions as "correct"
                             const ansCopy = [...ans]; // Copy of answer for mutable operations
@@ -106,16 +106,23 @@ const Game = () => {
                             
                             newGuessStatus[currentGuessIndex] = status;
                             setGuessStatus(newGuessStatus);
+
+                            let correct = true;
+                            newGuess.forEach((letter, i) => {
+                                if (status[i] !== "correct") correct = false;
+                            });
+
+                            if (correct) setGameWon(true);
+
                             setCurrentGuessIndex(currentGuessIndex + 1);
                         } 
                     }
-                }
-             
+                } 
             }
-            else alert("no more guesses");
         };
 
-
+        if (currentGuessIndex === 6) setGameLost(true);
+        
         window.addEventListener("keydown", letterTyped);
 
         // Cleanup function to remove the event listener when the component unmounts
@@ -182,7 +189,22 @@ const Game = () => {
                 <p className="mt-2 text-white"> A green tile indicates a correct letter and correct position. A yellow tile
                 indicates a correct letter, but an incorrect position. A grey tile indicates an incorrect letter that won't be in the word.</p>
             </Popup>
+            
+            {/* Pop-up for Game Won */}
+            <Popup trigger={gameWon} setTrigger={setGameWon}>
+                <h3 className="text-2xl text-green-500">Congratulations!</h3>
+                <p className="mt-4 text-white">You have correctly guessed the correct word! </p> <br></br> 
+                <p className="mt-2 text-white">Refresh the website to try again with a different word!</p>
+            </Popup>
+
+            {/* Pop-up for Game Lost */}
+            <Popup trigger={gameLost} setTrigger={setGameLost}>
+                <h3 className="text-2xl text-red-500">Game Over!</h3>
+                <p className="mt-4 text-white">You have used all 6 guesses and were unable to guess the correct word. </p> <br></br> 
+                <p className="mt-2 text-white">Refresh the website to try again with a different word!</p>
+            </Popup>
         </div>
+
     );
 };
 
