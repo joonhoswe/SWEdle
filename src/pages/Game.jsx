@@ -15,9 +15,7 @@ const Game = () => {
     const [gameLost, setGameLost] = useState(false);
 
 
-    const ans = ["R", "E", "A", "C", "T"];
-
-    let regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
+    
 
     let navigate = useNavigate();
     const goToHome = () => {
@@ -27,7 +25,10 @@ const Game = () => {
     useEffect(() => {
         // Adding the keydown event listener when the component mounts
         const letterTyped = (event) => {
-        
+            
+            const ans = ["R", "E", "A", "C", "T"];
+            const regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
+
             if (currentGuessIndex < 6)  // while guesses are left
             {
                 const newGuesses = [...guesses];
@@ -130,7 +131,7 @@ const Game = () => {
             window.removeEventListener("keydown", letterTyped);
         };
 
-    }, [guesses, currentGuessIndex, ans, guessStatus, regex]);
+    }, [guesses, currentGuessIndex, guessStatus]);
 
     
     return (
