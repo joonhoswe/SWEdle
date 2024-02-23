@@ -9,13 +9,10 @@ const Game = () => {
     const [guesses, setGuesses] = useState(Array(6).fill(Array(5).fill("")));      // 6 guesses
     const [guessStatus, setGuessStatus] = useState(Array(6).fill(Array(5).fill("null")));   // status for each guess
 
-    const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
+    const [currentGuessIndex, setCurrentGuessIndex] = useState(0);  // index for current guess out of 6 guesses
 
-    const [gameWon, setGameWon] = useState(false);
-    const [gameLost, setGameLost] = useState(false);
-
-
-    
+    const [gameWon, setGameWon] = useState(false);      // condition for gameWon popup
+    const [gameLost, setGameLost] = useState(false);    // condition for gameLost popup
 
     let navigate = useNavigate();
     const goToHome = () => {
@@ -26,7 +23,7 @@ const Game = () => {
         // Adding the keydown event listener when the component mounts
         const letterTyped = (event) => {
             
-            const ans = ["R", "E", "A", "C", "T"];
+            const ans = ["R", "E", "A", "C", "T"];  // hard coded in answer, will connect database in future
             const regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
 
             if (currentGuessIndex < 6)  // while guesses are left
@@ -187,8 +184,8 @@ const Game = () => {
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                 <h3 className="text-xl text-white">How to Play</h3>
                 <p className="mt-4 text-white">Guess the SWE word in 6 tries. After each guess, the color of the tiles will change to show how close your guess was to the word. </p> <br></br> 
-                <p className="mt-2 text-white"> A green tile indicates a correct letter and correct position. A yellow tile
-                indicates a correct letter, but an incorrect position. A grey tile indicates an incorrect letter that won't be in the word.</p>
+                <p className="mt-2 text-white"> A green tile indicates a correct letter and correct position. <br></br>A yellow tile
+                indicates a correct letter, but an incorrect position. <br></br>A red tile indicates an incorrect letter not found in the answer.</p>
             </Popup>
             
             {/* Pop-up for Game Won */}
