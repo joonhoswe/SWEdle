@@ -9,7 +9,8 @@ const Game = () => {
     const [guesses, setGuesses] = useState(Array(6).fill(Array(5).fill("")));      // 6 guesses
     const [guessStatus, setGuessStatus] = useState(Array(6).fill(Array(5).fill("null")));   // status for each guess
 
-    let currentGuessIndex = 0;
+    const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
+
 
     const ans = ["A", "N", "G", "I", "E"];
 
@@ -72,13 +73,13 @@ const Game = () => {
     
                             // First pass: Mark correct positions as "correct"
                             const ansCopy = [...ans]; // Copy of answer for mutable operations
-                            const status = [...guessStatus[currentGuessIndex]];
+                            const newGuessStatus = [...guessStatus];
+                            const status =  new Array(5).fill("wrong");
     
                             for (let i = 0; i < newGuess.length; i++) {
                                 if (newGuess[i] === ans[i]) 
                                 {
                                     status[i] = "correct"; // Mark as correct
-                                    setGuessStatus(status);
     
                                     ansCopy[i] = null; // Remove the matched letter from consideration
                                 }
@@ -95,21 +96,21 @@ const Game = () => {
                                         ansCopy[removeIndex] = null; // Remove from consideration
     
                                         status[i] = "present"; 
-                                        setGuessStatus(status);
                                     } 
                                     else
                                     {
                                         status[i] = "wrong";
-                                        setGuessStatus(status);
                                     }
                                 }
                             });
-
-                            currentGuessIndex++;
+                            
+                            newGuessStatus[currentGuessIndex] = status;
+                            setGuessStatus(newGuessStatus);
+                            setCurrentGuessIndex(currentGuessIndex + 1);
                         } 
                     }
                 }
-                
+             
             }
             else alert("no more guesses");
         };
@@ -122,7 +123,7 @@ const Game = () => {
             window.removeEventListener("keydown", letterTyped);
         };
 
-    }, [guesses]);
+    }, [guesses, currentGuessIndex]);
 
     
     return (
@@ -159,7 +160,7 @@ const Game = () => {
                 {guesses.map((guess, guessIndex) => (
                     <div key={guessIndex} className="flex justify-center items-center space-x-4 my-2">
                         {guess.map((letter, letterIndex) => (
-                            <div key={letterIndex} className={` text-white border-2 h-16 w-16 flex justify-center items-center text-4xl ${guessStatus[letterIndex] === 'correct' ? 'bg-green-500 scale-110 transition duration-600 ease-in-out' : guessStatus[letterIndex] === 'present' ? 'bg-yellow-500 scale-110 transition duration-600 ease-in-out' :  guessStatus[letterIndex] === 'wrong' ? 'bg-red-500 scale-110 transition duration-600 ease-in-out' : 'bg-transparent'}`}>
+                            <div key={letterIndex} className={` text-white border-2 h-16 w-16 flex justify-center items-center text-4xl ${guessStatus[guessIndex][letterIndex] === 'correct' ? 'bg-green-500 scale-110 transition duration-600 ease-in-out' : guessStatus[guessIndex][letterIndex] === 'present' ? 'bg-yellow-500 scale-110 transition duration-600 ease-in-out' :  guessStatus[guessIndex][letterIndex] === 'wrong' ? 'bg-red-500 scale-110 transition duration-600 ease-in-out' : 'bg-transparent'}`}>
                             {letter}
                             </div>
                         ))}
