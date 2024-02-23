@@ -26,6 +26,10 @@
 - Incorporate Web Scraping to scrape websites and dictionaries with lists of SWE words
 - Connect the scraped terms to a database
 - Expand the game to allow for various lengths of SWE words, not just 5 letter words.
+
+## 🦟 Known Bugs:
+- How-to-Play popup is not dynamically sized based on browser window size
+- (QOL improvement) - game won popup shows up before all tiles turn green
   
 
 # 💻 Tech Stack:
