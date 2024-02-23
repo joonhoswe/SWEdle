@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Popup from "../components/Popup"; 
+import correctImage from '../images/correct.png';
+import presentImage from '../images/present.png';
+import wrongImage from '../images/wrong.png';
 
 const Game = () => {
 
@@ -184,8 +187,18 @@ const Game = () => {
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                 <h3 className="text-xl text-white">How to Play</h3>
                 <p className="mt-4 text-white">Guess the SWE word in 6 tries. After each guess, the color of the tiles will change to show how close your guess was to the word. </p> <br></br> 
-                <p className="mt-2 text-white"> A green tile indicates a correct letter and correct position. <br></br>A yellow tile
-                indicates a correct letter, but an incorrect position. <br></br>A red tile indicates an incorrect letter not found in the answer.</p>
+
+                <p className="mt-2 text-white">A green tile indicates a correct letter and correct position: </p> <br></br>
+                <img src={correctImage} alt="Correct" />
+
+                <p className="mt-2 text-white">A yellow tile indicates a correct letter, but an incorrect position: </p> <br></br>
+                <img src={presentImage} alt="Present" />
+
+                <p className="mt-2 text-white">A red tile indicates an incorrect letter not found in the answer: </p> <br></br>
+                <img src={wrongImage} alt="Wrong" />
+                
+                <p className="mt-2 text-white"> Try to match all the tiles to green within 6 tries! </p>
+
             </Popup>
             
             {/* Pop-up for Game Won */}
