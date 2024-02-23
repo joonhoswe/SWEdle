@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Popup from "../components/Popup"; 
+import correctImage from '../images/correct.png';
+import presentImage from '../images/present.png';
+import wrongImage from '../images/wrong.png';
 
 const Home = () => {
     let navigate = useNavigate();
