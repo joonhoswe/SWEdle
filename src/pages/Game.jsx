@@ -122,7 +122,7 @@ const Game = () => {
             }
         };
 
-        if (currentGuessIndex === 6) setGameLost(true);
+        if (currentGuessIndex === 6 && !gameWon) setGameLost(true);
 
         window.addEventListener("keydown", letterTyped);
 
