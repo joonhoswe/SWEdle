@@ -131,7 +131,7 @@ const Game = () => {
             window.removeEventListener("keydown", letterTyped);
         };
 
-    }, [guesses, currentGuessIndex, guessStatus]);
+    }, [guesses, currentGuessIndex, guessStatus, gameWon]);
 
     
     return (
