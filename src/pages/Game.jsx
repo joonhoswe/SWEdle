@@ -113,16 +113,26 @@ const Game = () => {
                                 if (status[i] !== "correct") correct = false;
                             });
 
-                            if (correct) setGameWon(true);
-
-                            setCurrentGuessIndex(currentGuessIndex + 1);
+                            if (correct) {
+                                setGameWon(true);
+                            } else {
+                                setCurrentGuessIndex(currentGuessIndex + 1);
+                        
+                                // Check for game lost condition only after all guesses are made
+                                // and only if the game has not been won
+                                if (currentGuessIndex === 5 && !correct) {
+                                    // This delay ensures the state update for gameWon is processed
+                                    // before checking and setting gameLost.
+                                    setTimeout(() => {
+                                        if (!gameWon) setGameLost(true);
+                                    }, 0);
+                                }
+                            }
                         } 
                     }
                 } 
             }
         };
-
-        if (currentGuessIndex === 6 && !gameWon) setGameLost(true);
 
         window.addEventListener("keydown", letterTyped);
 
