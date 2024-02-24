@@ -26,7 +26,7 @@ const Game = () => {
         // Adding the keydown event listener when the component mounts
         const letterTyped = (event) => {
             
-            const ans = ["R", "E", "A", "C", "T"];  // hard coded in answer, will connect database in future
+            const ans = ["W", "H", "I", "L", "E"];  // hard coded in answer, will connect database in future
             const regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
 
             if (currentGuessIndex < 6)  // while guesses are left
