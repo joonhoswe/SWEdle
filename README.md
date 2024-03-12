@@ -24,6 +24,8 @@
 
 ## 🚀 Future Plans:
 - Add a keyboard below the guesses to enhance visuals
+- Implement a "Hint" button to give effective hints based on the word
+- Show the definition of the word after win/loss
 - Add smoother transitions
 - Possibly add a leaderboard
 
