@@ -3,7 +3,7 @@
 [Click to Play!](https://swedle.netlify.app)
 
 # 💫 About:
-🧩 SWEdle is a spinoff of the viral web game Wordle.com. Instead of random words, SWEdle incorporates various Software Engineering words and terms, such as "React", "Linux", "Agile", etc. As of now, it only incorporates a list of 5 letter words, similar to Wordle. SWEdle is built using React, JavaScript, and TailwindCSS for the frontend, MongoDB for the database of words,frontend is deployed on Netlify, and the backend is deployed on Fly.io. <br><br>
+🧩 SWEdle is a spinoff of the viral web game Wordle.com. Instead of random words, SWEdle incorporates various Software Engineering words and terms, such as "React", "Linux", "Agile", etc. As of now, it only incorporates a list of 5 letter words, similar to Wordle. <br> SWEdle is built using React, JavaScript, and TailwindCSS for the frontend, MongoDB for the database of words,frontend is deployed on Netlify, and the backend is deployed on Fly.io. <br><br>
 
 ##  🎮 Images:
 
