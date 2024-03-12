@@ -16,5 +16,8 @@
     "mongodb": "^6.5.0",
     "morgan": "~1.9.1",
     "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.2"
   }
 }

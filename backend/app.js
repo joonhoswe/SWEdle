@@ -13,17 +13,20 @@ const client = new MongoClient(uri, {
 
 
 const express = require('express');
+const app = express();
+
 const path = require('path');
 const { getWord } = require('./db/db')
-const cors = require('cors');
 
-const app = express();
-app.use(cors());
-const port = 3001;
+const cors = require('cors');
+const corsOptions = {
+  origin: 'https://swedle.netlify.app',
+};
+app.use(cors(corsOptions));
 
 app.get('/random-word', async (req, res) => {
   try {
-      const word = await getWord(); // No need to pass the client here
+      const word = await getWord(client); // No need to pass the client here
       if (word) {
           res.json({ word });
       } else {
@@ -35,9 +38,9 @@ app.get('/random-word', async (req, res) => {
   }
 });
 
+const port = 3001;
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
-
 
 module.exports = app;

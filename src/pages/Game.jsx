@@ -28,7 +28,7 @@ const Game = () => {
         // Fetch the random word when the component mounts
         const fetchRandomWord = async () => {
             try {
-                const response = await fetch('http://localhost:3001/random-word'); // Adjust the URL/port as necessary
+                const response = await fetch('https://swedle.fly.dev/random-word'); // Adjust the URL/port as necessary
                 const data = await response.json();
                 setAns(data.word.toUpperCase().split('')); // Assuming the word is returned in a field named 'word' and convert it to uppercase
             } catch (error) {
