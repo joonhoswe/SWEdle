@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Popup from "../components/Popup"; 
 import correctImage from '../images/correct.png';
 import presentImage from '../images/present.png';
-import wrongImage from '../images/wrong.png';
+import wrongImage from '../images/wrong.png'; 
 
 const Game = () => {
 
@@ -17,16 +17,33 @@ const Game = () => {
     const [gameWon, setGameWon] = useState(false);      // condition for gameWon popup
     const [gameLost, setGameLost] = useState(false);    // condition for gameLost popup
 
+    const [ans, setAns] = useState(Array(5).fill(""));
+
     let navigate = useNavigate();
     const goToHome = () => {
         navigate('/Home');
     };
 
     useEffect(() => {
+        // Fetch the random word when the component mounts
+        const fetchRandomWord = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/random-word'); // Adjust the URL/port as necessary
+                const data = await response.json();
+                setAns(data.word.toUpperCase().split('')); // Assuming the word is returned in a field named 'word' and convert it to uppercase
+            } catch (error) {
+                console.error("Failed to fetch random word:", error);
+            }
+        };
+
+        fetchRandomWord();
+    }, []);
+
+    useEffect(() => {
         // Adding the keydown event listener when the component mounts
         const letterTyped = (event) => {
             
-            const ans = ["W", "H", "I", "L", "E"];  // hard coded in answer, will connect database in future
+            //const ans = ["W", "H", "I", "L", "E"];  // hard coded in answer, will connect database in future
             const regex = /^[a-z]$/i;     // used to test if keyboard input is a letter
 
             if (currentGuessIndex < 6)  // while guesses are left
@@ -141,7 +158,7 @@ const Game = () => {
             window.removeEventListener("keydown", letterTyped);
         };
 
-    }, [guesses, currentGuessIndex, guessStatus, gameWon]);
+    }, [ans, guesses, currentGuessIndex, guessStatus, gameWon]);
 
     
     return (
