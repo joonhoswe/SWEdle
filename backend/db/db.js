@@ -1,9 +1,8 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority`;
 
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -12,21 +11,25 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
+async function getWord(client) {
+    const collection = client.db("SWEdle").collection("words");
+    const result = await collection.aggregate([
+        { $sample: { size: 1 } }
+    ]).toArray();
 
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
+    if (result.length) {
+        console.log("Found a random word:", result[0].word);
+        return result[0].word; // Assuming the document has a 'word' field
+    } else {
+        console.log("No words found");
+        return null;
+    }
+}
+
 
 async function run() {
   try {
     await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    
-    await  listDatabases(client);
 
   } catch (e) {
     console.error(e);
@@ -36,5 +39,6 @@ async function run() {
   }
 }
 
-
 run().catch(console.dir);
+
+module.exports = { client, listDatabases, getWord };
