@@ -19,9 +19,23 @@ const path = require('path');
 const { getWord } = require('./db/db')
 
 const cors = require('cors');
+// Array of allowed origins for CORS
+const allowedOrigins = [
+  'https://main--swedle.netlify.app',
+  'https://swedle.netlify.app',
+  'http://localhost:3000', 
+];
+
 const corsOptions = {
-  origin: 'https://main--swedle.netlify.app',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS')); // Reject the request
+    }
+  },
 };
+
 app.use(cors(corsOptions));
 
 app.get('/random-word', async (req, res) => {
