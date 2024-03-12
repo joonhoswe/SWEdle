@@ -20,7 +20,7 @@ const { getWord } = require('./db/db')
 
 const cors = require('cors');
 const corsOptions = {
-  origin: 'https://swedle.netlify.app',
+  origin: 'https://main--swedle.netlify.app',
 };
 app.use(cors(corsOptions));
 
