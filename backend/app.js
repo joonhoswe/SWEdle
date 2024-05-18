@@ -40,7 +40,7 @@ app.use(cors(corsOptions));
 
 app.get('/random-word', async (req, res) => {
   try {
-      const word = await getWord(client); // No need to pass the client here
+      const word = await getWord(client); 
       if (word) {
           res.json({ word });
       } else {

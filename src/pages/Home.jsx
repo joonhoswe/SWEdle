@@ -20,9 +20,9 @@ const Home = () => {
             <h2 className="text-gray-400 text-2xl font-sans mb-2">SWE (Software Engineering) word.</h2>
 
             <div className="flex justify-center items-center space-x-6 mt-8">
-                <button onClick={() => setButtonPopup(true)} className="hover:scale-110 w-32 flex-shrink-0 bg-yellow-500 text-white py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-yellow-600 focus:outline-none"> How to Play </button>
+                {/* <button onClick={() => setButtonPopup(true)} className="hover:scale-110 w-32 flex-shrink-0 bg-yellow-500 text-white py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-yellow-600 focus:outline-none"> How to Play </button> */}
                 <button className="hover:scale-110 w-32 flex-shrink-0 bg-green-500 text-white py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none" onClick={goToGame}> Play! </button>
-                <button className="hover:scale-110 w-40 flex-shrink-0 bg-blue-500 text-white py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none"> Log In (Not Yet) </button>
+                {/* <button className="hover:scale-110 w-40 flex-shrink-0 bg-blue-500 text-white py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none"> Log In (Not Yet) </button> */}
             </div>
 
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>

@@ -30,7 +30,7 @@ const Game = () => {
             try {
                 const response = await fetch('https://swedle.fly.dev/random-word'); // Adjust the URL/port as necessary
                 const data = await response.json();
-                setAns(data.word.toUpperCase().split('')); // Assuming the word is returned in a field named 'word' and convert it to uppercase
+                setAns(data.word.toUpperCase().split('')); // Word is returned in a field named 'word' and convert it to uppercase
             } catch (error) {
                 console.error("Failed to fetch random word:", error);
             }
@@ -162,7 +162,7 @@ const Game = () => {
 
     
     return (
-        <div className="bg-gray-900 h-screen flex flex-col">
+        <div className="bg-gray-900 min-h-screen flex flex-col">
             {/* Header*/}
             <div className="w-full flex justify-between items-center pt-3 px-4 pb-4">
                 {/* Return Home button */}
